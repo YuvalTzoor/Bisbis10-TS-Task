@@ -1,0 +1,214 @@
+{
+	"info": {
+		"_postman_id": "6496e79f-9683-4d7f-9efb-6e83278dfd91",
+		"name": "Restaurant Management System API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "23756215"
+	},
+	"item": [
+		{
+			"name": "Restaurants",
+			"item": [
+				{
+					"name": "Get all restaurants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8000/restaurants"
+					},
+					"response": []
+				},
+				{
+					"name": "Get restaurants by cuisine",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/restaurants?cuisine=Asian",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"restaurants"
+							],
+							"query": [
+								{
+									"key": "cuisine",
+									"value": "Asian"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get restaurant",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8000/restaurants/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Add a restaurant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Restaurant From Postman\",\"isKosher\": false,\"cuisines\": [\"Asian\",\"Mexican\",\"Indian\"]\n}"
+						},
+						"url": "http://localhost:8000/restaurants"
+					},
+					"response": []
+				},
+				{
+					"name": "Update a restaurant",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cuisines\": [\"Asian\"]\n}"
+						},
+						"url": "http://localhost:8000/restaurants/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a restaurant",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8000/restaurants/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ratings",
+			"item": [
+				{
+					"name": "Add a restaurant rating",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"restaurantId\": 1,\n    \"rating\": 3\n}"
+						},
+						"url": "http://localhost:8000/ratings"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Place an order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"restaurantId\": 1,\n    \"orderItems\": [\n        {\n            \"dishId\": 1,\n            \"amount\": 2\n        },\n        {\n            \"dishId\": 1,\n            \"amount\": 1\n        }\n    ]\n}"
+						},
+						"url": "http://localhost:8000/order"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dishes",
+			"item": [
+				{
+					"name": "Add a dish",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Shakshuka2\",\n    \"description\": \"Great one\",\n    \"price\": 37\n}"
+						},
+						"url": "http://localhost:8000/restaurants/1/dishes"
+					},
+					"response": []
+				},
+				{
+					"name": "Update a dish",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"Great one\",\n    \"price\": 34\n}"
+						},
+						"url": "http://localhost:8000/restaurants/1/dishes/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a dish",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8000/restaurants/1/dishes/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Get dishes by a restaurant",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8000/restaurants/1/dishes"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

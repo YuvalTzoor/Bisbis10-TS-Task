@@ -1,0 +1,68 @@
+// Define the 'restaurants' model
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Restaurant {
+  id            Int      @id @default(autoincrement())
+  name          String
+  isKosher      Boolean  @map("is_kosher")
+  cuisines      Json[] 
+  dishes        Dish[]
+  ratings       Rating[]
+  orders        Order[]
+  averageRating Decimal? @db.Decimal(3, 1) 
+
+  @@map("restaurants")
+}
+
+
+model Dish {
+  id           Int         @id @default(autoincrement())
+  restaurantId Int         @map("restaurant_id")
+  name         String
+  description  String?
+  price        Decimal     @db.Decimal(10, 2) // Using Decimal for accurate currency representation
+  restaurant   Restaurant  @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  orderItems   OrderItem[]
+
+  @@map("dishes")
+}
+
+
+model Rating {
+  id           Int        @id @default(autoincrement())
+  restaurantId Int        @map("restaurant_id")
+  rating       Decimal    @db.Decimal(3, 1) // Decimal type for rating to keep precision
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+
+  @@map("ratings")
+}
+
+
+model Order {
+  id           String      @id @default(uuid())
+  restaurantId Int
+  orderDate    DateTime    @default(now())
+  restaurant   Restaurant  @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  orderItems   OrderItem[]
+
+  @@map("orders")
+}
+
+
+model OrderItem {
+  id      Int    @id @default(autoincrement())
+  orderId String @map("order_id") 
+  dishId  Int    @map("dish_id")
+  amount  Int
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  dish    Dish   @relation(fields: [dishId], references: [id], onDelete: Cascade)
+
+  @@map("order_items")
+}
