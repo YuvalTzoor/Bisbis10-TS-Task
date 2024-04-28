@@ -1,7 +1,3 @@
-Here's the updated README with the new sections and explanations:
-
----
-
 # Restaurant Management System
 
 ## Overview
